@@ -2,28 +2,28 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET(
-  request: Request,
-  { params }: { params: { id: any } }
-) {
-  try {
-    const categoryId = Number(params.id);
-    const category = await prisma.category.findUnique({
-      where: {
-        id: categoryId,
-      },
-      include: {
-        posts: true,
-      },
-    });
+// export async function GET(
+//   request: Request,
+//   { params }: { params: { id: string } }
+// ) {
+//   try {
+//     const categoryId = Number(params.id);
+//     const category = await prisma.category.findUnique({
+//       where: {
+//         id: categoryId,
+//       },
+//       include: {
+//         posts: true,
+//       },
+//     });
 
-    return Response.json(category);
-  } catch (error) {
-    return new Response(error as BodyInit, {
-      status: 500,
-    });
-  }
-}
+//     return Response.json(category);
+//   } catch (error) {
+//     return new Response(error as BodyInit, {
+//       status: 500,
+//     });
+//   }
+// }
 
 export async function PUT(
   request: Request,
