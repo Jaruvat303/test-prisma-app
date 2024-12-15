@@ -1,14 +1,16 @@
 import { PrismaClient } from "@prisma/client";
-import { NextApiRequest } from "next";
+
 
 const prisma = new PrismaClient();
 
+
 export async function GET(
-  request: NextApiRequest,
+  request: Request,
+  { params }: { params: { id: string } }
 ) {
   try {
-    const {id} = request.query
-    const categoryId = Number(id);
+
+    const categoryId = Number(params.id);
     const category = await prisma.category.findUnique({
       where: {
         id: categoryId,
