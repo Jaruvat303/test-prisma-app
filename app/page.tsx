@@ -46,8 +46,8 @@ export default function Home() {
     console.log({
       category,
       search,
-      sort
-    })
+      sort,
+    });
   };
 
   useEffect(() => {
@@ -67,22 +67,24 @@ export default function Home() {
             setSearch(e.target.value);
           }}
         />
-        <select value={category}
+
+        <select
+          value={category}
           onChange={(e) => {
-            setCategory(e.target.value);
+            setCategory(e.target.value)
           }}
         >
           <option value="">Select Category</option>
 
-          {allCategory.map((cat: any) => (
-            <option value={cat.name}>{cat.name}</option>
+          {allCategory.map((cat: any,index) => (
+            <option value={cat.name}>{index}{cat.name}</option>
           ))}
         </select>
 
         <select
           value={sort}
           onChange={(e) => {
-            setSort(e.target.value);
+            setSort(e.target.value)
           }}
         >
           <option value="desc">Latest</option>

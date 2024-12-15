@@ -7,39 +7,39 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
 
-    try {
-        const postId = Number(params.id);
-        const post = await prisma.post.findUnique({
-          where: {
-            id: postId,
-          },include :{
-            category:true
-          }
-        });
-      
-        return Response.json(post);
-    } catch (error) {
-        return new Response(error as BodyInit, {
-            status: 500,
-        })
-    }
- 
+  try {
+    const postId = Number(params.id);
+    const post = await prisma.post.findUnique({
+      where: {
+        id: postId,
+      }, include: {
+        category: true
+      }
+    });
+
+    return Response.json(post);
+  } catch (error) {
+    return new Response(error as BodyInit, {
+      status: 500,
+    })
+  }
+
 }
 
 export async function PUT(
   request: Request,
   { params }: { params: { id: string } }
 ) {
-  try { 
+  try {
     const postId = Number(params.id);
-    const { title, content ,categoryId} = await request.json();
+    const { title, content, categoryId } = await request.json();
 
     const updatePort = await prisma.post.update({
       where: { id: postId },
       data: {
         title,
         content,
-        categoryId : Number(categoryId),
+        categoryId: Number(categoryId),
       },
     });
 

@@ -2,16 +2,19 @@ import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
-export async function GET(request: Request,{ params }: { params: { id: string } }) {
+export async function GET(
+  request: Request,
+  { params }: { params: { id: any } }
+) {
   try {
     const categoryId = Number(params.id);
     const category = await prisma.category.findUnique({
       where: {
         id: categoryId,
-      },include:{
-        posts: true
-      }
-      
+      },
+      include: {
+        posts: true,
+      },
     });
 
     return Response.json(category);
@@ -45,7 +48,10 @@ export async function PUT(
   }
 }
 
-export async function DELETE(request: Request,{ params }: { params: { id: string } }) {
+export async function DELETE(
+  request: Request,
+  { params }: { params: { id: string } }
+) {
   try {
     const categoryId = Number(params.id);
 
@@ -60,4 +66,3 @@ export async function DELETE(request: Request,{ params }: { params: { id: string
     });
   }
 }
-
