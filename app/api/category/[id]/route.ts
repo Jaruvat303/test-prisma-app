@@ -29,10 +29,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const categoryId = Number(params.id);
+    const categoryId = Number((await params).id);
     const { name } = await request.json();
 
     const updateCategory = await prisma.category.update({
@@ -52,10 +52,10 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const categoryId = Number(params.id);
+    const categoryId = Number((await params).id);
 
     const deleteCategory = await prisma.category.delete({
       where: { id: categoryId },

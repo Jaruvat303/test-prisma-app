@@ -4,11 +4,11 @@ const prisma = new PrismaClient();
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
 
   try {
-    const postId = Number(params.id);
+    const postId = Number((await params).id);
     const post = await prisma.post.findUnique({
       where: {
         id: postId,
@@ -28,10 +28,10 @@ export async function GET(
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const postId = Number(params.id);
+    const postId = Number((await params).id);
     const { title, content, categoryId } = await request.json();
 
     const updatePort = await prisma.post.update({
@@ -53,10 +53,10 @@ export async function PUT(
 
 export async function DELETE(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const postId = Number(params.id);
+    const postId = Number((await params).id);
 
     const deletePost = await prisma.post.delete({
       where: { id: postId },
