@@ -2,15 +2,16 @@
 
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useRouter } from "next/router";
 
-const Edit = ({ params }: { params: { id: string } }) => {
+
+const Edit = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [categoryId, setCategoryId] = useState("");
   const [allCategory, setAllcategory] = useState([]);
-  const { id } = params;
   const router = useRouter();
+  const id = router.query.id?.toString() || "";
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
